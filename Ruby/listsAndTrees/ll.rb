@@ -93,14 +93,14 @@ class LLNode < Node
 	end
 end
 
-myLL = LinkedList.new
-[24, 3, 0, 15].each do
-	|n|
-	myLL.addNode(n)
-end
-myLL.each {|v| puts v}
-myLL.remove(15)
-myLL.each {|v| puts v}
+# myLL = LinkedList.new
+# [24, 3, 0, 15].each do
+# 	|n|
+# 	myLL.addNode(n)
+# end
+# myLL.each {|v| puts v}
+# myLL.remove(15)
+# myLL.each {|v| puts v}
 # newLL = myLL.map {|v| v*2}
 # newLL.each {|v| puts v}
 # myLL.map! {|v| v**3}
