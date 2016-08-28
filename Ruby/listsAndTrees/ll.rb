@@ -35,6 +35,21 @@ class LinkedList
 		end
 	end
 	public
+	def remove(value)
+		curNode = @head
+		if curNode.value == value
+			@head = @head.next
+		else
+			while curNode != nil
+				if curNode.next != nil && curNode.next.value == value
+					curNode.next = curNode.next.next
+				end
+				curNode = curNode.next
+			end
+		end
+
+	end
+	public
 	def empty?
 		return @head==nil
 	end
@@ -78,12 +93,14 @@ class LLNode < Node
 	end
 end
 
-# myLL = LinkedList.new
-# 10.times do
-# 	n = Random.rand(50)
-# 	myLL.addNode(n)
-# end
-# myLL.each {|v| puts v}
+myLL = LinkedList.new
+[24, 3, 0, 15].each do
+	|n|
+	myLL.addNode(n)
+end
+myLL.each {|v| puts v}
+myLL.remove(15)
+myLL.each {|v| puts v}
 # newLL = myLL.map {|v| v*2}
 # newLL.each {|v| puts v}
 # myLL.map! {|v| v**3}
