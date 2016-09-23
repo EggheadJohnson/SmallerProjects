@@ -6,25 +6,18 @@ class RedBlackTree < BinarySearchTree
 		checkRBState(node)
 	end
 	def checkRBState(node)
-		# Check if the root node is black
-		# puts "checking "+node.value.to_s
 
 
 		if node.parent == nil
-			# puts "head"
 			node.color = 'black'
 		else
 
 			if node.parent.color == 'red' && node.parent.getSibling != nil && node.parent.getSibling.color == 'red'
-				# puts "uncle red for: "+node.value.to_s
 				node.parent.parent.color = 'red'
 				node.parent.color = 'black'
 				node.parent.getSibling.color = 'black'
 			elsif node.color == 'red' && node.parent.color == 'red' && ((node.parent.getSibling != nil && node.parent.getSibling.color == 'black') || node.parent.getSibling == nil)
-				# puts "uncle black for: "+node.value.to_s
-				# puts node.parent.color
 				if node.value < node.parent.value && node.parent.parent != nil && node.parent.value < node.parent.parent.value
-					# puts "left of a left"
 					greatgrandparent = node.parent.parent.parent
 					grandparent = node.parent.parent
 					parent = node.parent
@@ -56,7 +49,6 @@ class RedBlackTree < BinarySearchTree
 
 
 				elsif node.value > node.parent.value && node.parent.parent != nil && node.parent.value < node.parent.parent.value
-					# puts "right of a left"
 					grandparent = node.parent.parent
 					parent = node.parent
 					leftChild = node.left
@@ -71,13 +63,11 @@ class RedBlackTree < BinarySearchTree
 
 					grandparent.left = node
 					node.parent = grandparent
-					# puts "checking on node.left: "+node.left.value.to_s
 					checkRBState(node.left)
 
 
 
 				elsif node.value < node.parent.value && node.parent.parent != nil && node.parent.value > node.parent.parent.value
-					# puts "left of a right"
 					grandparent = node.parent.parent
 					parent = node.parent
 					rightChild = node.right
@@ -92,15 +82,12 @@ class RedBlackTree < BinarySearchTree
 
 					grandparent.right = node
 					node.parent = grandparent
-					# puts "checking on node.right: "+node.right.value.to_s
 					checkRBState(node.right)
 
 				elsif node.value > node.parent.value && node.parent.parent != nil && node.parent.value > node.parent.parent.value
-					# puts "right of a right"
 
 					parent = node.parent
 					grandparent = parent.parent
-					# puts parent.value
 					greatgrandparent = grandparent.parent
 					parentLeft = node.parent.left
 
@@ -126,14 +113,10 @@ class RedBlackTree < BinarySearchTree
 
 					grandparent.color = 'red'
 					parent.color = 'black'
-				else
-					# puts "poo"
 				end
 
 			end
-			#among other things...
 			if node.parent != nil
-				# puts "checking on node.parent: "+node.parent.value.to_s+" from: "+node.value.to_s
 				checkRBState(node.parent)
 			end
 		end
@@ -148,7 +131,6 @@ class RedBlackTree < BinarySearchTree
 		printLists = [[]]
 		validValueAdded = true
 		while validValueAdded || !activeQ.empty?
-			# puts printLists
 
 			if activeQ.empty?
 
@@ -163,7 +145,6 @@ class RedBlackTree < BinarySearchTree
 			else
 				printLists[-1] << " "
 			end
-			# printLists[-1] << curNode.color == 'red' ? 'r' : 'b'
 
 
 
@@ -223,29 +204,25 @@ class RBTNode < BSTNode
 	end
 end
 
-# myRBTNode = RBNode.new(10)
-# puts myRBNode.value, myRBNode.color
-myRBT = RedBlackTree.new
+
+# myRBT = RedBlackTree.new
 
 # inputInt = gets.to_i
 # while inputInt != -1
 # 	myRBT.RBAddNode(RBTNode.new(inputInt))
-# 	myRBT.printAsTree
-# 	myRBT.printAsColorTree
-# 	myRBT.inOrder
+# 	# myRBT.printAsTree
+# 	# myRBT.printAsColorTree
+# 	# myRBT.inOrder
 #
 # 	inputInt = gets.to_i
 # end
 
-10.times do
-	n = RBTNode.new(Random.rand(200))
-	puts n.value
-
-	myRBT.RBAddNode(n)
-end
-myRBT.printAsTree
-myRBT.printAsColorTree
-myRBT.inOrder
+# 10.times do
+# 	n = RBTNode.new(Random.rand(200))
+# 	puts n.value
+#
+# 	myRBT.RBAddNode(n)
+# end
 
 # [8,4,12,2,6,10,14,1,3,5,7,9,11,13,15].each do |n|
 # 	addN = RBTNode.new(n)
@@ -257,39 +234,6 @@ myRBT.inOrder
 # 	myRBT.RBAddNode(addN)
 # end
 
-
-# myRBT.RBAddNode(RBTNode.new(3))
-# myRBT.printAsTree
-# myRBT.printAsColorTree
-# myRBT.RBAddNode(RBTNode.new(1))
-# myRBT.printAsTree
-# myRBT.printAsColorTree
-# myRBT.RBAddNode(RBTNode.new(4))
-# myRBT.head.right.color = 'black'
-# myRBT.printAsTree
-# myRBT.printAsColorTree
-# myRBT.RBAddNode(RBTNode.new(2))
-
-# myRBT.RBAddNode(RBTNode.new(2))
-# myRBT.printAsTree
-# myRBT.printAsColorTree
-# myRBT.RBAddNode(RBTNode.new(1))
-# myRBT.head.left.color = 'black'
-# myRBT.printAsTree
-# myRBT.printAsColorTree
-# myRBT.RBAddNode(RBTNode.new(4))
-# myRBT.printAsTree
-# myRBT.printAsColorTree
-# myRBT.RBAddNode(RBTNode.new(3))
-
-# puts "printing"
 # myRBT.printAsTree
 # myRBT.printAsColorTree
 # myRBT.inOrder
-# puts myRBT.head.color
-# puts myRBT.head.right.color
-# puts myRBT.head.left.color
-# puts myRBT.head.left.right.color
-
-# puts myRBT.head.right.value, myRBT.head.right.left.parent.value, myRBT.head.right.right.parent.value
-# puts myRBT.head.right.left.value, myRBT.head.right.left.getSibling.value
