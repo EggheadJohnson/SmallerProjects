@@ -239,11 +239,9 @@ myRBT = RedBlackTree.new
 
 10.times do
 	n = RBTNode.new(Random.rand(200))
-	if !myRBT.contains(n.value)
-		puts n.value
+	puts n.value
 
-		myRBT.RBAddNode(n)
-	end
+	myRBT.RBAddNode(n)
 end
 myRBT.printAsTree
 myRBT.printAsColorTree
