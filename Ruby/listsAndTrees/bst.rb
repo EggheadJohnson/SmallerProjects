@@ -2,15 +2,17 @@ require_relative 'node'
 require_relative 'queue'
 
 class BinarySearchTree
+	attr_reader :head
 	def initialize
 		@head = nil
 	end
 	public
-	def addNode(value)
+	def addNode(node)
+		value = node.value
 		if @head == nil
-			@head = BSTNode.new(value)
+			@head = node
 		else
-			nodeToAdd = BSTNode.new(value)
+			nodeToAdd = node
 			curNode = @head
 			spot = value > curNode.value ? curNode.right : curNode.left
 			while spot != nil
@@ -22,6 +24,7 @@ class BinarySearchTree
 			else
 				curNode.left = nodeToAdd
 			end
+			nodeToAdd.parent = curNode
 		end
 
 	end
@@ -91,6 +94,21 @@ class BinarySearchTree
 
 		return curNode
 	end
+	def contains(value)
+		curNode = @head
+		while curNode != nil
+			if curNode.value == value
+				return true
+			elsif value < curNode.value
+				curNode = curNode.left
+			else
+				curNode = curNode.right
+			end
+		end
+		return false
+	end
+
+
 	public
 	def inOrder
 		inOrderPrivate(@head)
@@ -202,7 +220,7 @@ class BinarySearchTree
 end
 
 class BSTNode < Node
-	attr_accessor :left, :right
+	attr_accessor :left, :right, :parent
 	def initialize(value)
 		super(value)
 		@left = nil
@@ -212,10 +230,17 @@ end
 
 
 # myBST = BinarySearchTree.new
-# 10.times do
-# 	n = Random.rand(200)
-# 	# puts n
-# 	myBST.addNode(n)
-# end
-# # [8,4,12,2,6,10,14,1,3,5,7,9,11,13,15].each {|n| myBST.addNode(n)}
+# # 10.times do
+# # 	n = BSTNode.new(Random.rand(200))
+# # 	# puts n
+# #
+# # 	myBST.addNode(n)
+# # end
+# # [8,4,12,2,6,10,14,1,3,5,7,9,11,13,15].each {|n| myBST.addNode(BSTNode.new(n))}
+# # myBST.addNode(BSTNode.new(10))
+# # puts myBST.contains(10)
+# # puts myBST.contains(11)
+# # myBST.addNode(BSTNode.new(11))
+# # puts myBST.contains(10)
+# # puts myBST.contains(11)
 # myBST.printAsTree
