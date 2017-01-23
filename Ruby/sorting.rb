@@ -1,5 +1,5 @@
 require 'date'
-testArray = [87, 96, 2, 40, 6, 89, 39, 91, 31, 57]
+testArray = [87, 96, 2, 40, 6, 89, 39, 91,96,  31, 57]
 
 def genArray(size, max)
 	output = []
@@ -89,6 +89,63 @@ def quicksort(inpArr)
 	return quicksort(smaller)+quicksort(larger)
 end
 
+def insertionSort(inpArr)
+	sortArr = inpArr.slice(0, inpArr.length)
+	if sortArr.length == 1
+		return sortArr
+	end
+	i = 1
+	while i < sortArr.length
+		x = i
+		while x > 0 && sortArr[x] < sortArr[x-1]
+			sortArr[x],sortArr[x-1] = sortArr[x-1],sortArr[x]
+			x = x - 1
+		end
+		i = i + 1
+	end
+	return sortArr
+end
+
+def mergeSort(inpArr)
+	sortArr = inpArr.slice(0, inpArr.length)
+	if sortArr.length == 1
+		return sortArr
+	end
+	left = sortArr.slice(0, sortArr.length/2)
+	right = sortArr.slice(sortArr.length/2, sortArr.length)
+	left = mergeSort(left)
+	right = mergeSort(right)
+	leftCounter = rightCounter = 0
+	ans = []
+	while leftCounter < left.length || rightCounter < right.length
+
+		if leftCounter < left.length && rightCounter < right.length
+			if left[leftCounter] < right[rightCounter]
+				ans = ans.push(left[leftCounter])
+				leftCounter = leftCounter + 1
+			elsif leftCounter != left.length
+				ans = ans.push(right[rightCounter])
+				rightCounter = rightCounter + 1
+			end
+		elsif leftCounter < left.length
+			left.slice(leftCounter, left.length).each do |x|
+				ans.push(x)
+			end
+			leftCounter = left.length
+		elsif rightCounter < right.length
+			right.slice(rightCounter, right.length).each do |x|
+				ans.push(x)
+			end
+			rightCounter = right.length
+		end
+
+
+
+	end
+	return ans
+end
+
+
 def timeIt(testArray)
 	start = DateTime.now.strftime('%Q').to_i
 	selectionSort(testArray)
@@ -98,13 +155,21 @@ def timeIt(testArray)
 	heapsort(testArray)
 	stop = DateTime.now.strftime('%Q').to_i
 	puts "Heap Sort took: "+(stop-start).to_s
+	# start = DateTime.now.strftime('%Q').to_i
+	# quicksort(testArray)
+	# stop = DateTime.now.strftime('%Q').to_i
+	# puts "Quick Sort took: "+(stop-start).to_s
 	start = DateTime.now.strftime('%Q').to_i
-	quicksort(testArray)
+	insertionSort(testArray)
 	stop = DateTime.now.strftime('%Q').to_i
-	puts "Quick Sort took: "+(stop-start).to_s
+	puts "Insertion Sort took: "+(stop-start).to_s
+	start = DateTime.now.strftime('%Q').to_i
+	mergeSort(testArray)
+	stop = DateTime.now.strftime('%Q').to_i
+	puts "Merge Sort took: "+(stop-start).to_s
 end
 
-# testArray = genArray(20, 10000)
+# testArray = genArray(20000, 10000)
 # timeIt(testArray)
 
 
@@ -115,3 +180,7 @@ end
 # arrPri(heapsort(testArray))
 # puts
 # arrPri(quicksort(testArray))
+# puts
+# arrPri(insertionSort(testArray))
+# puts
+# arrPri(mergeSort(testArray))
